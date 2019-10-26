@@ -6223,8 +6223,14 @@ static int calc_sg_energy(struct energy_env *eenv)
 		if (unlikely(idle_idx < 0))
 			return idle_idx;
 
+<<<<<<< HEAD
 		if (idle_idx > sg->sge->nr_idle_states - 1)
 			idle_idx = sg->sge->nr_idle_states - 1;
+=======
+#ifdef CONFIG_SCHED_SMT
+DEFINE_STATIC_KEY_FALSE(sched_smt_present);
+EXPORT_SYMBOL_GPL(sched_smt_present);
+>>>>>>> v4.14.99
 
 		idle_power = sg->sge->idle_states[idle_idx].power;
 		idle_energy   = SCHED_CAPACITY_SCALE - sg_util;
