@@ -458,26 +458,7 @@ static void store_temperature(struct thermal_zone_device *tz, int temp)
 			tz->last_temperature, tz->temperature);
 }
 
-<<<<<<< HEAD
-static void update_temperature(struct thermal_zone_device *tz)
-{
-	int temp, ret;
-
-	ret = thermal_zone_get_temp(tz, &temp);
-	if (ret) {
-		if (ret != -EAGAIN)
-			dev_warn(&tz->device,
-				 "failed to read out thermal zone (%d)\n",
-				 ret);
-		return;
-	}
-	store_temperature(tz, temp);
-}
-
-static void thermal_zone_device_reset(struct thermal_zone_device *tz)
-=======
 static void thermal_zone_device_init(struct thermal_zone_device *tz)
->>>>>>> v4.14.99
 {
 	struct thermal_instance *pos;
 	tz->temperature = THERMAL_TEMP_INVALID;
@@ -1664,14 +1645,7 @@ static int thermal_pm_notify(struct notifier_block *nb,
 	case PM_POST_SUSPEND:
 		atomic_set(&in_suspend, 0);
 		list_for_each_entry(tz, &thermal_tz_list, node) {
-<<<<<<< HEAD
-			if (tz->ops->is_wakeable &&
-				tz->ops->is_wakeable(tz))
-				continue;
-			thermal_zone_device_reset(tz);
-=======
 			thermal_zone_device_init(tz);
->>>>>>> v4.14.99
 			thermal_zone_device_update(tz,
 						   THERMAL_EVENT_UNSPECIFIED);
 		}
